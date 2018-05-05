@@ -1,1 +1,1 @@
-# treinando-threads-java
+# treinando rest-assured-test
