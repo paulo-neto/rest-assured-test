@@ -27,6 +27,11 @@ public class UsuarioDTO implements DTO<UsuarioDTO>{
 		this.senha = senha;
 		this.email = email;
 	}
+	
+	public UsuarioDTO(String login, String senha, String email, Set<PerfilDTO> perfis) {
+		this(login,senha,email);
+		this.perfis = perfis;
+	}
 
 	public Long getId() {
 		return id;

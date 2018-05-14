@@ -33,7 +33,9 @@
 		<version.org.jboss.resteasy>2.3.8.Final-redhat-3</version.org.jboss.resteasy>
 		<version.resteasy.hibernatevalidator.provider>2.3.6.Final</version.resteasy.hibernatevalidator.provider>
 		<version.rest.assured>3.1.0</version.rest.assured>
-		<version.junit>4.12</version.junit> 
+		<version.junit>4.12</version.junit>
+		<jackson1.version>1.9.11</jackson1.version>
+		<jackson2.version>2.7.3</jackson2.version>
 	</properties>
 	<profiles>
 		<!-- PROFILE PARA GERAR EAR DE DESENVOLVIMENTO LOCAL -->
@@ -45,30 +47,6 @@
 			<properties></properties>
 		</profile>
 	</profiles>
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.jboss.spec</groupId>
-				<artifactId>jboss-javaee-7.0</artifactId>
-				<version>${version.org.jboss.spec.jboss.javaee.7.0}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.jboss.bom</groupId>
-				<artifactId>jboss-eap-javaee7</artifactId>
-				<version>7.0.0.GA</version>
-				<type>pom</type>
-			</dependency>
-			<dependency>
-				<groupId>org.jboss.resteasy</groupId>
-				<artifactId>resteasy-bom</artifactId>
-				<version>3.0.6.Final</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 	<dependencies>
 		<dependency>
 			<groupId>io.rest-assured</groupId>
@@ -76,10 +54,38 @@
 			<version>${version.rest.assured}</version>
 		</dependency>
 		<dependency>
-		    <groupId>junit</groupId>
-		    <artifactId>junit</artifactId>
-		    <version>${version.junit}</version>
-		    <scope>test</scope>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>json-path</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>json-schema-validator</artifactId>
+			<version>3.1.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.4</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-jaxrs</artifactId>
+			<version>${jackson1.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${version.junit}</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>commons-beanutils</groupId>

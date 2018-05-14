@@ -2,6 +2,7 @@ package com.pauloneto.restassuredtest;
 
 import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -49,16 +50,24 @@ public class ApiRestTest {
 	
 	@Test
 	public void deveCriarUmPerfil() {
-		Response post = given().header("Accept", "application/json")
-				.post(API_PERFIL, programer);
-		assertTrue(Status.SUCCESS.matches(post.getStatusCode()));
+		Response thenReturn = given().contentType(ContentType.JSON)
+				.body(programer)
+				.post(API_PERFIL)
+				.thenReturn();
+		PerfilDTO perfil = thenReturn.andReturn().jsonPath().getObject("", PerfilDTO.class);
+		assertNotNull(perfil);
+		System.out.println(perfil.getId());
 	}
 	
 	
-	public void deveCriarUmUusario() {
-		Response post = given().accept(ContentType.JSON)
-				.post(API_USUARIO, usuProgramador);
-		assertTrue(Status.SUCCESS.matches(post.getStatusCode())); 
+	public void deveCriarUmUsario() {
+		Response thenReturn = given().contentType(ContentType.JSON)
+				.body(usuProgramador)
+				.post(API_USUARIO)
+				.thenReturn();
+		UsuarioDTO usuario = thenReturn.andReturn().jsonPath().getObject("", UsuarioDTO.class);
+		assertNotNull(usuario);
+		System.out.println(usuario.getId());
 	}
 	
 	
