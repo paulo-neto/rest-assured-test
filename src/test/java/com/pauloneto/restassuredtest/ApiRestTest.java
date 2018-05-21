@@ -5,14 +5,19 @@ import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.http.entity.mime.MIME;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.pauloneto.restassuredtest.modelo.PerfilDTO;
 import com.pauloneto.restassuredtest.modelo.UsuarioDTO;
+import com.sun.activation.registries.MimeTypeFile;
 
 import io.restassured.http.ContentType;
 import io.restassured.internal.http.Status;
@@ -48,7 +53,7 @@ public class ApiRestTest {
 		limpaUsuarios();
 	}
 	
-	@Test
+	
 	public void deveCriarUmPerfil() {
 		Response thenReturn = given().contentType(ContentType.JSON)
 				.body(programer)
@@ -82,6 +87,24 @@ public class ApiRestTest {
 		JsonPath json = get(API_PERFIL)
 		.andReturn().jsonPath();
 		List<PerfilDTO> perfis = json.getList("",PerfilDTO.class);
+	}
+	
+	@Test
+	public void deveAssociarUmaImagemAusuario() {
+		Response thenReturn = given().contentType(ContentType.JSON)
+				.body(usuProgramador)
+				.post(API_USUARIO)
+				.thenReturn();
+		UsuarioDTO usuario = thenReturn.andReturn().jsonPath().getObject("", UsuarioDTO.class);
+		
+		Map<String,Object> pathParam = new HashMap<>();
+		pathParam.put("idUsuario", usuario.getId());
+		given().params(pathParam).contentType("multipart/form-data")
+		.multiPart("uploadedFile", new File(this.getClass().getResource("/Boleto.pdf").getFile()),
+				"application/pdf")
+		.expect().statusCode(200).when()
+        .put(API_USUARIO + "/adiciona-imagem-usuario");
+		
 	}
 	
 	private void iniciaUsuarios() {

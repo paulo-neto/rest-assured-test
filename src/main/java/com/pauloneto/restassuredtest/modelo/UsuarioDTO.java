@@ -20,6 +20,8 @@ public class UsuarioDTO implements DTO<UsuarioDTO>{
 	
 	private Set<PerfilDTO> perfis;
 
+	private Arquivo imagem;
+	
 	public UsuarioDTO() {}
 	
 	public UsuarioDTO(String login, String senha, String email) {
@@ -71,5 +73,13 @@ public class UsuarioDTO implements DTO<UsuarioDTO>{
 
 	public void setPerfis(Set<PerfilDTO> perfis) {
 		this.perfis = perfis;
+	}
+
+	public Arquivo getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(Arquivo imagem) {
+		this.imagem = imagem;
 	}
 }
